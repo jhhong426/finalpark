@@ -39,24 +39,19 @@ public class LedUploadController {
   public void uploadForm() {
   }
 
-  @RequestMapping(value = "/user/uploadForm", method = RequestMethod.POST)
-  public ModelAndView uploadForm(MultipartFile file, ModelAndView mav) throws Exception{
+  @RequestMapping(value ="/user/uploadForm", method=RequestMethod.POST, 
+          produces = "text/plain;charset=UTF-8")
+public String uploadForm(MultipartFile file)throws Exception{
 
+logger.info("originalName: " + file.getOriginalFilename());
 
-    logger.info("originalName: " + file.getOriginalFilename());
-    logger.info("size: " + file.getSize());
-    logger.info("contentType: " + file.getContentType());
-
-    String savedName = file.getOriginalFilename();
-
-    File target = new File(uploadPath, savedName);
-    FileCopyUtils.copy(file.getBytes(), target);
-
-    mav.setViewName("ledger/input");
-    mav.addObject("savedName", savedName);
-
-    return mav; // uploadResult.jsp(결과화면)로 포워딩
-  }
+new ResponseEntity<>(
+        UploadFileUtils.uploadFile(uploadPath, 
+              file.getOriginalFilename(), 
+              file.getBytes()), 
+        HttpStatus.CREATED);
+return "redirect:/ledger/bbs";
+}
 
   @RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
   public void uploadAjax() {
@@ -79,17 +74,15 @@ public class LedUploadController {
   @ResponseBody
   @RequestMapping(value ="/uploadAjax", method=RequestMethod.POST, 
                   produces = "text/plain;charset=UTF-8")
-  public ResponseEntity<String> uploadAjax(MultipartFile file)throws Exception{
+  public  ModelAndView uploadAjax(MultipartFile file, ModelAndView mav)throws Exception{
     
     logger.info("originalName: " + file.getOriginalFilename());
-    
+    String savedName = file.getOriginalFilename();
    
-    return 
-      new ResponseEntity<>(
-          UploadFileUtils.uploadFile(uploadPath, 
-                file.getOriginalFilename(), 
-                file.getBytes()), 
-          HttpStatus.CREATED);
+    mav.setViewName("ledger/input");
+    mav.addObject("savedName", savedName);
+  
+    return mav;
   }
   
   
