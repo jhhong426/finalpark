@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.zerock.util.MediaUtils;
 import org.zerock.util.UploadFileUtils;
 
@@ -32,24 +33,29 @@ public class LedUploadController {
   private static final Logger logger = LoggerFactory.getLogger(LedUploadController.class);
 
   @Resource(name = "uploadPath")
-  private String uploadPath;
+  String uploadPath;
 
-  @RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+  @RequestMapping(value = "/user/uploadForm", method = RequestMethod.GET)
   public void uploadForm() {
   }
 
-  @RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
-  public String uploadForm(MultipartFile file, Model model) throws Exception {
+  @RequestMapping(value = "/user/uploadForm", method = RequestMethod.POST)
+  public ModelAndView uploadForm(MultipartFile file, ModelAndView mav) throws Exception{
+
 
     logger.info("originalName: " + file.getOriginalFilename());
     logger.info("size: " + file.getSize());
     logger.info("contentType: " + file.getContentType());
 
-    String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+    String savedName = file.getOriginalFilename();
 
-    model.addAttribute("savedName", savedName);
+    File target = new File(uploadPath, savedName);
+    FileCopyUtils.copy(file.getBytes(), target);
 
-    return "uploadResult";
+    mav.setViewName("ledger/input");
+    mav.addObject("savedName", savedName);
+
+    return mav; // uploadResult.jsp(결과화면)로 포워딩
   }
 
   @RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
