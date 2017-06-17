@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.ledBoardMapper">
+
+	
+	<insert id="create">
+		INSERT INTO led_board (contents)
+		values('140자 메모를 작성해주세요')
+	</insert>
+	
+	<select id="checkCreate" resultType = "int">
+		SELECT count(num) 
+		FROM led_board 
+		WHERE date_format(regdate,"%Y-%m-%d") LIKE #{date}
+	</select>
+
+	<select id="read" resultType="org.zerock.domain.LedBoardVO">
+		SELECT
+			num, contents, regdate
+		FROM
+			led_board
+		WHERE num = #{num}
+	</select>
+	
+	<select id="readToday" resultType="org.zerock.domain.LedBoardVO">
+		SELECT num, contents, regdate
+		FROM led_board
+		WHERE date_format(regdate,"%Y-%m-%d") LIKE #{regdate}
+	</select>
+
+	<select id="listAll" resultType="org.zerock.domain.LedBoardVO">
+	<![CDATA[
+		 SELECT 
+		   num, date_format(regdate,"%Y-%m-%d") AS regdate, total 
+		 FROM 
+		   led_board 
+		 WHERE num > 0 
+		 ORDER BY num DESC, regdate DESC
+	]]>
+	</select>
+
+	<update id="update">
+		UPDATE led_board SET contents =#{contents}
+		WHERE num =#{num}
+	</update>
+
+	<sql id="search">
+		<if test="year != null">
+			and date_format(regdate, "%Y") LIKE #{year}
+			and date_format(regdate,"%m") LIKE #{month}
+		</if>
+	</sql>
+
+	<select id="listSearch" resultType="LedBoardVO">
+	<![CDATA[  
+	  	SELECT 
+			num, date_format(regdate,"%Y-%m-%d") AS regdate, total 
+		FROM 
+			led_board 
+		WHERE 
+			num > 0 
+	]]>
+
+		<include refid="search"></include>
+		
+	<![CDATA[    
+		 ORDER BY regdate DESC
+	]]>
+	</select>
+
+	<update id="updateLedgerCnt">
+	  Update led_ledger SET amount = amount + #{amount} WHERE boardnum = #{boardNum}
+	</update>
+	
+	
+	<insert id="addAttach">
+	insert into led_attach(fullname, boardnum) values (#{fullName}, LAST_INSERT_ID())
+	</insert> 
+	
+	
+	<select id="getAttach" resultType="string">
+	select fullname from led_attach where boardnum = #{boardnum} order by regdate
+	</select> 
+	
+	 
+	<delete id="deleteAttach">
+	delete from led_attach where boardnum = #{boardnum}
+	</delete>
+	
+	<insert id="replaceAttach">
+	insert into led_attach(fullname, boardnum) values (#{fullName}, #{boardnum})
+	</insert>
+
+
+</mapper>
+
+
