@@ -1,6 +1,8 @@
 package org.zerock.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -45,7 +47,17 @@ public class LedgerDAOImpl implements LedgerDAO {
   public int getBoardNum(Integer num) throws Exception {
 
     return session.selectOne(namespace + ".getBoardNum", num);
+ 
   }
   
+  @Override
+	  public void updateLedgerCnt(Integer num) throws Exception {
+
+	    Map<String, Object> paramMap = new HashMap<String, Object>();
+
+	    paramMap.put("num", num);
+
+	    session.update(namespace + ".updateLedgerCnt", paramMap);
+	  }
   
 }

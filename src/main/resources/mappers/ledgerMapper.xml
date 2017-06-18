@@ -61,6 +61,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete">
 		delete from led_ledger where num =#{num}
 	</delete>
+	
+	<update id="updateLedgerCnt">
+	  Update led_ledger L, led_board B SET B.total = (
+	  SUM(SELECT L.amount FROM L WHERE L.divide LIKE 1)
+	  - SUM(SELECT L.amount FROM L WHERE L.divide LIKE 0))
+	  WHERE L.boardnum = #{boardNum}
+	  AND L.boardnum = B.boardnum
+	</update>
 
 
 </mapper>

@@ -50,16 +50,7 @@ public class LedBoardDAOImpl implements LedBoardDAO {
 	    return session.selectList(namespace + ".listSearch", cri);
 	  }
 
-	  @Override
-	  public void updateLedgerCnt(Integer num, int amount) throws Exception {
-
-	    Map<String, Object> paramMap = new HashMap<String, Object>();
-
-	    paramMap.put("num", num);
-	    paramMap.put("amount", amount);
-
-	    session.update(namespace + ".updateLedgerCnt", paramMap);
-	  }
+	  
 
 	@Override
 	public int checkCreate(String date) {

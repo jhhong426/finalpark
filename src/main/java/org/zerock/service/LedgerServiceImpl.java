@@ -16,15 +16,13 @@ public class LedgerServiceImpl implements LedgerService {
   @Inject
   private LedgerDAO ledgerDAO;
   
-  @Inject
-  private LedBoardDAO ledBoardDAO;
 
   @Transactional
   @Override
   public void addLedger(LedgerVO vo) throws Exception {
 
     ledgerDAO.create(vo);
-    ledBoardDAO.updateLedgerCnt(vo.getBoardNum(), 1);
+    ledgerDAO.updateLedgerCnt(vo.getBoardNum());
   }
   
   @Transactional
@@ -33,7 +31,7 @@ public class LedgerServiceImpl implements LedgerService {
 
     int boardNum = ledgerDAO.getBoardNum(num);
     ledgerDAO.delete(num);
-    ledBoardDAO.updateLedgerCnt(boardNum, -1);
+    ledgerDAO.updateLedgerCnt(boardNum);
   }   
 
   @Override

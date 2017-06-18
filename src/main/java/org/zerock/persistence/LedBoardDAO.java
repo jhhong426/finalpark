@@ -22,8 +22,6 @@ public interface LedBoardDAO {
 	//use for dynamic sql
 	  
 	public List<LedBoardVO> listSearch(LedSearchCriteria cri)throws Exception;
-	  
-	public void updateLedgerCnt(Integer num, int amount)throws Exception;
 	
 	public int checkCreate(String date);
 	

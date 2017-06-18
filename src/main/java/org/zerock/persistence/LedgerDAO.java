@@ -15,5 +15,7 @@ public interface LedgerDAO {
   public void delete(Integer num) throws Exception;
 
   public int getBoardNum(Integer num) throws Exception;
+  
+  public void updateLedgerCnt(Integer num)throws Exception;
 
 }

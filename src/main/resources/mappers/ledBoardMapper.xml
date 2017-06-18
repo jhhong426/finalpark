@@ -71,9 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<update id="updateLedgerCnt">
-	  Update led_ledger SET amount = amount + #{amount} WHERE boardnum = #{boardNum}
-	</update>
+
 	
 	
 	<insert id="addAttach">
