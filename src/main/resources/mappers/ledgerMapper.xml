@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countDate" resultType="int">
 		select COALESCE(SUM(amount),0)
 		from led_ledger
-		where category = #{category} and date(regdate) like #{date}
+		where category = #{category} and date(regdate) like #{date} and divide = 0
 	</select>
 	
 	<select id="countMonth" resultType="int">

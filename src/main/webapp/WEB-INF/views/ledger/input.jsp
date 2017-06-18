@@ -9,9 +9,7 @@
 
 <%@include file="../include/header.jsp"%>
 
-<script type="text/javascript" src="/resources/js/upload.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
 
 <!-- Main content -->
     <style type="text/css">
@@ -200,6 +198,11 @@
    
 </section>
 <!-- /.content -->
+
+<script type="text/javascript" src="/resources/js/upload.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
 
 <script>
 

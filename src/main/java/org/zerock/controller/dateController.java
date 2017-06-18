@@ -46,7 +46,7 @@ public class dateController {
     	map.put("category3", service.countDate(3, date));
     	map.put("category4", service.countDate(4, date));
     	map.put("category5", service.countDate(5, date));
-    	map.put("category6", service.countDate(6, date));
+    	map.put("category0", service.countDate(0, date));
     	map.put("my Test", 1234);
     	
     	Integer a = service.countDate(6, date);

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -544,6 +545,7 @@ desired effect
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="../../../resources/plugins/fullcalendar/fullcalendar.min.js"></script>
 <!-- Page specific script -->
+
 <script>
   $(function () {
 
@@ -570,6 +572,7 @@ desired effect
 
       });
     }
+   
 
     ini_events($('#external-events div.external-event'));
 
@@ -580,6 +583,25 @@ desired effect
     var d = date.getDate(),
         m = date.getMonth(),
         y = date.getFullYear();
+    
+     var listStr = "";
+//    $.each(${vo},function(index,item){
+//   		listStr=listStr+"{title:'올랄라',start:new Date(y,m,1),background:'#f56954',borderColor:'#f56954'}";
+//    });
+
+
+    
+    /* for(var data in ${listVO}){
+    	listStr= listStr+ "{title:'${data.title}',start: new Date(y,m,1),background:'#f56954',borderColor:'#f56954'},"
+             title: 'All Day Event',
+             start: new Date(y, m, 1),
+             backgroundColor: "#f56954", //red
+             borderColor: "#f56954" //red 
+    } */
+    
+    
+  
+    
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
@@ -593,8 +615,9 @@ desired effect
         day: 'day' 
       },
       //Random default events
+      
       events: [
-        
+    	 
       ],
       editable: true,
       droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -615,14 +638,13 @@ desired effect
         // render the event on the calendar
         // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
         $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
         // is the "remove after drop" checkbox checked?
         if ($('#drop-remove').is(':checked')) {
           // if so, remove the element from the "Draggable Events" list
           $(this).remove();
         }
-
       },
+     
       dayClick: function(date, jsEvent, view) {
 
           
@@ -674,7 +696,7 @@ desired effect
 							        label: "학원"
 							      },
 							      {
-							        value: result.category6,
+							        value: result.category0,
 							        color: "#d2d6de",
 							        highlight: "#d2d6de",
 							        label: "기타"
@@ -722,7 +744,30 @@ desired effect
 
       }
     });
+    
+   // $.each(${vo},function(index,item){
+//		listStr=listStr+"{title:'올랄라',start:new Date(y,m,1),background:'#f56954',borderColor:'#f56954'}";
+//});
 
+    $.each(${vo},function(index,item){
+ 
+    	var m = $.fullCalendar.moment(item.regdate);
+    	if (item.divide=='수입'){
+		    $('#calendar').fullCalendar('renderEvent', {
+		    	title: item.category+"/"+item.amount+"원" ,
+		        start: m
+		        
+		    }, true);
+    	}else{
+    		$('#calendar').fullCalendar('renderEvent', {
+    		   title: item.category+"/"+item.amount+"원" ,
+    		   start: m,
+    		   backgroundColor: "#f56954",
+	            borderColor: "#f56954" 
+    		}, true);	
+    	}
+    });
+    
     /* ADDING EVENTS */
     var currColor = "#3c8dbc"; //Red by default
     //Color chooser button

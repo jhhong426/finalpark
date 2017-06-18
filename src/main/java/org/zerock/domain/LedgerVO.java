@@ -49,7 +49,7 @@ public class LedgerVO {
 			
 		}
 		
-		return "{num:"+num+",divide:'"+processDivide+"',amount:"+amount+",category:'"+processCategory+"',context:'"+context+"',photo:'"+Arrays.toString(photo)+"',regdate:'"+regdate+"'}";
+		return "{num:"+num+",divide:'"+processDivide+"',amount:"+amount+",category:'"+processCategory+"',context:'"+context+"',photo:'"+Arrays.toString(photo)+"',regdate:'"+regdate.substring(0,10)+"'}";
 	}
 	public Integer getNum() {
 		return num;
@@ -66,8 +66,8 @@ public class LedgerVO {
 	public Integer getDivide() {
 		return divide;
 	}
-	public void setDivide(Integer div) {
-		this.divide = div;
+	public void setDivide(Integer divide) {
+		this.divide = divide;
 	}
 	public Integer getAmount() {
 		return amount;

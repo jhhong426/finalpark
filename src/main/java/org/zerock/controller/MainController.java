@@ -59,7 +59,7 @@ public class MainController {
 	  model.addAttribute("month4",service.countMonth("4"));
 	  model.addAttribute("month5",service.countMonth("5"));
 	  model.addAttribute("month6",service.countMonth("6"));
-	  
+	  model.addAttribute("vo",service.allData());
 	  //model.addAttribute("clickDate,")
 	 
 	}
