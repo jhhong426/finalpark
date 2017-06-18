@@ -68,8 +68,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
 <update id="updateLedgerCnt">
 	  UPDATE led_ledger L INNER JOIN led_board B ON B.num = L.boardnum SET B.total = 
-	  COALESCE((SELECT SUM(COALESCE(L.amount,0)) FROM led_ledger WHERE L.divide LIKE 1 AND L.boardnum LIKE #{boardNum}),0)
-	  - COALESCE((SELECT SUM(COALESCE(L.amount,0)) FROM led_ledger WHERE L.divide LIKE 0 AND L.boardnum LIKE #{boardNum}),0)
+	  COALESCE((SELECT SUM(COALESCE(amount,0)) FROM led_ledger WHERE divide LIKE 1 AND boardnum LIKE #{boardNum}),0)
+	  - COALESCE((SELECT SUM(COALESCE(amount,0)) FROM led_ledger WHERE divide LIKE 0 AND boardnum LIKE #{boardNum}),0)
 	  WHERE L.boardnum LIKE #{boardNum};
 	</update>
 
