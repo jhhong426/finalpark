@@ -51,13 +51,13 @@ public class LedgerDAOImpl implements LedgerDAO {
   }
   
   @Override
-	  public void updateLedgerCnt(Integer num) throws Exception {
+	  public void updateLedgerCnt(LedgerVO vo) throws Exception {
 
-	    Map<String, Object> paramMap = new HashMap<String, Object>();
+	    /*Map<String, Object> paramMap = new HashMap<String, Object>();
 
-	    paramMap.put("num", num);
+	    paramMap.put("num", num);*/
 
-	    session.update(namespace + ".updateLedgerCnt", paramMap);
+	    session.update(namespace + ".updateLedgerCnt", vo);
 	  }
   
 }
